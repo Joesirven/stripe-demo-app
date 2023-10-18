@@ -12,7 +12,7 @@ const clientCredentials = {
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
     };
 
-if (!firebase.getApps.length) {
+if (!firebase.getApps().length) {
     firebase.initializeApp(clientCredentials);
 }
 
