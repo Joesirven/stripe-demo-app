@@ -1,12 +1,27 @@
 "use client";
 
+// import { init } from "next/dist/compiled/webpack/webpack";
 import { useRouter } from "next/navigation";
+import { initFirebase } from "@/firebase/firebaseClient";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 export default function Home() {
   const router = useRouter();
 
+  const app = initFirebase();
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+  const userName = auth.currentUser?.displayName;
+  const email = auth.currentUser?.email;
+
+
   const signIn = async () => {
-    goToAccount();
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+
+    if (user) {
+      goToAccount();
+    };
   };
 
   const rightArrow = (
@@ -38,7 +53,7 @@ export default function Home() {
         </span>
       </div>
       <div className="text-xl md:text-2xl font-light mb-8">
-        Welcome! Let's get started.
+        Welcome {userName}! Let's get started. {email}
       </div>
       <button
         onClick={signIn}

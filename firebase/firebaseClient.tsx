@@ -1,19 +1,26 @@
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-const clientCredentials = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGE_SENDER_ID,
-    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-    };
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAHO_x3WJZzDSGFAh9yhpj_Ky4mDhRF-cM",
+  authDomain: "stripe-nextjs-demo.firebaseapp.com",
+  projectId: "stripe-nextjs-demo",
+  storageBucket: "stripe-nextjs-demo.appspot.com",
+  messagingSenderId: "687836250584",
+  appId: "1:687836250584:web:cfdee16fc6870d3c9232ad",
+  measurementId: "G-4SNTJ6F7T5"
+};
 
-if (!firebase.getApps().length) {
-    firebase.initializeApp(clientCredentials);
-}
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
-export default firebase;
+
+export const initFirebase = () => {
+    return app;
+};

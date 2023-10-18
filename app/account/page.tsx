@@ -4,10 +4,15 @@ import { useRouter } from "next/navigation";
 import { PremiumPanel } from "./premiumPanel";
 import { StandardPanel } from "./standardPanel";
 import { useEffect, useState } from "react";
+import { initFirebase } from "@/firebase/firebaseClient";
+import { getAuth } from "firebase/auth";
 
 export default function AccountPage() {
-  const userName = "Jack";
-  const email = "jack@pixegami.com";
+  const app = initFirebase();
+  const auth = getAuth(app);
+
+  const userName = auth.currentUser?.displayName;
+  const email = auth.currentUser?.email;
   const router = useRouter();
   const [isPremium, setIsPremium] = useState(false);
 
@@ -20,6 +25,7 @@ export default function AccountPage() {
   };
 
   const signOut = () => {
+    auth.signOut();
     router.push("/");
   };
 
