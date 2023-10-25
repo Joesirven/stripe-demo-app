@@ -6,6 +6,7 @@ import { StandardPanel } from "./standardPanel";
 import { useEffect, useState } from "react";
 import { initFirebase } from "@/firebase/firebaseClient";
 import { getAuth } from "firebase/auth";
+import { getCheckoutUrl } from "./stripePayments";
 
 export default function AccountPage() {
   const app = initFirebase();
@@ -17,6 +18,9 @@ export default function AccountPage() {
   const [isPremium, setIsPremium] = useState(false);
 
   const upgradeToPremium = async () => {
+    const priceId = "price_1O2goaHYbVPsCXfr8AWPCYwL";
+    const checkoutURl = await getCheckoutUrl(app, priceId);
+    router.push(checkoutURl);
     console.log("Upgrade to Premium");
   };
 
